@@ -2,6 +2,9 @@ module github.com/dgraph-io/badger/v4
 
 go 1.19
 
+// https://github.com/dgraph-io/ristretto/pull/375
+replace github.com/dgraph-io/ristretto => github.com/paralin/ristretto v0.1.2-0.20240221033725-e9838e36e9d8 // fix-wasm-1
+
 require (
 	github.com/cespare/xxhash/v2 v2.2.0
 	github.com/dgraph-io/ristretto v0.1.2-0.20240116140435-c67e07994f91
