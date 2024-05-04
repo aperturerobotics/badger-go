@@ -23,7 +23,6 @@ import (
 	"encoding/binary"
 	"io"
 
-	"github.com/golang/protobuf/proto"
 	"github.com/pkg/errors"
 
 	"github.com/dgraph-io/badger/v4/pb"
@@ -148,10 +147,10 @@ func (stream *Stream) Backup(w io.Writer, since uint64) (uint64, error) {
 }
 
 func writeTo(list *pb.KVList, w io.Writer) error {
-	if err := binary.Write(w, binary.LittleEndian, uint64(proto.Size(list))); err != nil {
+	if err := binary.Write(w, binary.LittleEndian, uint64(list.SizeVT())); err != nil {
 		return err
 	}
-	buf, err := proto.Marshal(list)
+	buf, err := list.MarshalVT()
 	if err != nil {
 		return err
 	}
@@ -264,7 +263,7 @@ func (db *DB) Load(r io.Reader, maxPendingWrites int) error {
 		}
 
 		list := &pb.KVList{}
-		if err := proto.Unmarshal(unmarshalBuf[:sz], list); err != nil {
+		if err := list.UnmarshalVT(unmarshalBuf[:sz]); err != nil {
 			return err
 		}
 

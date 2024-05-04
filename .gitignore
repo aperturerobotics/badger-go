@@ -3,3 +3,6 @@ badger-test*/
 .idea/
 
 vendor
+.tools/
+yarn.lock
+node_modules

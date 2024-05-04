@@ -19,7 +19,7 @@ syntax = "proto3";
 
 package badgerpb4;
 
-option go_package = "github.com/dgraph-io/badger/v4/pb";
+option go_package = "github.com/dgraph-io/badger/v4/pb;pb";
 
 message KV {
   bytes key = 1;

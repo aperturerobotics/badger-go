@@ -24,7 +24,6 @@ import (
 	"sync/atomic"
 	"unsafe"
 
-	"github.com/golang/protobuf/proto"
 	fbs "github.com/google/flatbuffers/go"
 	"github.com/klauspost/compress/s2"
 	"github.com/pkg/errors"
@@ -464,7 +463,7 @@ func (b *Builder) Done() buildData {
 
 func (b *Builder) calculateChecksum(data []byte) []byte {
 	// Build checksum for the index.
-	checksum := pb.Checksum{
+	checksum := &pb.Checksum{
 		// TODO: The checksum type should be configurable from the
 		// options.
 		// We chose to use CRC32 as the default option because
@@ -478,7 +477,7 @@ func (b *Builder) calculateChecksum(data []byte) []byte {
 	}
 
 	// Write checksum to the file.
-	chksum, err := proto.Marshal(&checksum)
+	chksum, err := checksum.MarshalVT()
 	y.Check(err)
 	// Write checksum size.
 	return chksum

@@ -113,7 +113,7 @@ func (wb *WriteBatch) Write(buf *z.Buffer) error {
 
 	err := buf.SliceIterate(func(s []byte) error {
 		kv := &pb.KV{}
-		if err := kv.Unmarshal(s); err != nil {
+		if err := kv.UnmarshalVT(s); err != nil {
 			return err
 		}
 		return wb.writeKV(kv)

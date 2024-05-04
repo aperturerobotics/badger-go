@@ -477,7 +477,7 @@ func BufferToKVList(buf *z.Buffer) (*pb.KVList, error) {
 	var list pb.KVList
 	err := buf.SliceIterate(func(s []byte) error {
 		kv := new(pb.KV)
-		if err := kv.Unmarshal(s); err != nil {
+		if err := kv.UnmarshalVT(s); err != nil {
 			return err
 		}
 		list.Kv = append(list.Kv, kv)
@@ -487,6 +487,6 @@ func BufferToKVList(buf *z.Buffer) (*pb.KVList, error) {
 }
 
 func KVToBuffer(kv *pb.KV, buf *z.Buffer) {
-	out := buf.SliceAllocate(kv.Size())
-	y.Check2(kv.MarshalToSizedBuffer(out))
+	out := buf.SliceAllocate(kv.SizeVT())
+	y.Check2(kv.MarshalToSizedBufferVT(out))
 }

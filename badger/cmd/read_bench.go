@@ -214,7 +214,7 @@ func getSampleKeys(db *badger.DB, sampleSize int) ([][]byte, error) {
 		}
 		err := buf.SliceIterate(func(s []byte) error {
 			var kv pb.KV
-			if err := kv.Unmarshal(s); err != nil {
+			if err := kv.UnmarshalVT(s); err != nil {
 				return err
 			}
 			keys = append(keys, kv.Key)

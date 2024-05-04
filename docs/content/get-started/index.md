@@ -501,7 +501,7 @@ stream.KeyToList = nil
 
 // Send is called serially, while Stream.Orchestrate is running.
 stream.Send = func(list *pb.KVList) error {
-  return proto.MarshalText(w, list) // Write to w.
+  return list.MarshalProtoText() // Write to w.
 }
 
 // Run the stream

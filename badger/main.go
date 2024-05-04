@@ -23,7 +23,7 @@ import (
 	"runtime"
 
 	"github.com/dustin/go-humanize"
-	"go.opencensus.io/zpages"
+	// "go.opencensus.io/zpages"
 
 	"github.com/dgraph-io/badger/v4/badger/cmd"
 	"github.com/dgraph-io/ristretto/z"
@@ -40,7 +40,7 @@ func main() {
 			}
 		}
 	}()
-	zpages.Handle(nil, "/z")
+	// zpages.Handle(nil, "/z")
 	runtime.SetBlockProfileRate(100)
 	runtime.GOMAXPROCS(128)
 

@@ -28,7 +28,6 @@ import (
 	"path/filepath"
 	"sync"
 
-	"github.com/golang/protobuf/proto"
 	"github.com/pkg/errors"
 
 	"github.com/dgraph-io/badger/v4/options"
@@ -209,8 +208,8 @@ func (mf *manifestFile) addChanges(changesParam []*pb.ManifestChange) error {
 	if mf.inMemory {
 		return nil
 	}
-	changes := pb.ManifestChangeSet{Changes: changesParam}
-	buf, err := proto.Marshal(&changes)
+	changes := &pb.ManifestChangeSet{Changes: changesParam}
+	buf, err := changes.MarshalVT()
 	if err != nil {
 		return err
 	}
@@ -218,7 +217,7 @@ func (mf *manifestFile) addChanges(changesParam []*pb.ManifestChange) error {
 	// Maybe we could use O_APPEND instead (on certain file systems)
 	mf.appendLock.Lock()
 	defer mf.appendLock.Unlock()
-	if err := applyChangeSet(&mf.manifest, &changes); err != nil {
+	if err := applyChangeSet(&mf.manifest, changes); err != nil {
 		return err
 	}
 	// Rewrite manifest if it'd shrink by 1/10 and it's big enough to care
@@ -272,7 +271,7 @@ func helpRewrite(dir string, m *Manifest, extMagic uint16) (*os.File, int, error
 	changes := m.asChanges()
 	set := pb.ManifestChangeSet{Changes: changes}
 
-	changeBuf, err := proto.Marshal(&set)
+	changeBuf, err := set.MarshalVT()
 	if err != nil {
 		fp.Close()
 		return nil, 0, err
@@ -424,12 +423,12 @@ func ReplayManifestFile(fp *os.File, extMagic uint16) (Manifest, int64, error) {
 			return Manifest{}, 0, errBadChecksum
 		}
 
-		var changeSet pb.ManifestChangeSet
-		if err := proto.Unmarshal(buf, &changeSet); err != nil {
+		var changeSet = &pb.ManifestChangeSet{}
+		if err := changeSet.UnmarshalVT(buf); err != nil {
 			return Manifest{}, 0, err
 		}
 
-		if err := applyChangeSet(&build, &changeSet); err != nil {
+		if err := applyChangeSet(&build, changeSet); err != nil {
 			return Manifest{}, 0, err
 		}
 	}

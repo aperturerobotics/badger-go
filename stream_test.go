@@ -25,7 +25,6 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/golang/protobuf/proto"
 	"github.com/stretchr/testify/require"
 
 	bpb "github.com/dgraph-io/badger/v4/pb"
@@ -61,7 +60,7 @@ func (c *collector) Send(buf *z.Buffer) error {
 		if kv.StreamDone == true {
 			return nil
 		}
-		cp := proto.Clone(kv).(*bpb.KV)
+		cp := kv.CloneVT()
 		c.kv = append(c.kv, cp)
 	}
 	return err

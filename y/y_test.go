@@ -317,7 +317,7 @@ func TestAllocatorReuse(t *testing.T) {
 			kv.Version = uint64(sz)
 			list.Kv = append(list.Kv, kv)
 		}
-		_, err := list.Marshal()
+		_, err := list.MarshalVT()
 		require.NoError(t, err)
 	}
 	t.Logf("Allocator: %s\n", a)
