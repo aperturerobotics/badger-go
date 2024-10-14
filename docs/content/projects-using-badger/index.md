@@ -39,7 +39,7 @@ Below is a list of known projects that use Badger:
 * [Volument](https://volument.com/) - A new take on website analytics backed by Badger.
 * [KVdb](https://kvdb.io/) - Hosted key-value store and serverless platform built on top of Badger.
 * [Terminotes](https://gitlab.com/asad-awadia/terminotes) - Self hosted notes storage and search server - storage powered by BadgerDB
-* [Pyroscope](https://github.com/pyroscope-io/pyroscope) - Open source confinuous profiling platform built with BadgerDB
+* [Pyroscope](https://github.com/pyroscope-io/pyroscope) - Open source continuous profiling platform built with BadgerDB
 * [Veri](https://github.com/bgokden/veri) - A distributed feature store optimized for Search and Recommendation tasks.
 * [bIter](https://github.com/MikkelHJuul/bIter) - A library and Iterator interface for working with the `badger.Iterator`, simplifying from-to, and prefix mechanics.
 * [ld](https://github.com/MikkelHJuul/ld) - (Lean Database) A very simple gRPC-only key-value database, exposing BadgerDB with key-range scanning semantics.
@@ -58,5 +58,6 @@ Below is a list of known projects that use Badger:
 * [DVID](https://github.com/janelia-flyem/dvid) - A dataservice for branched versioning of a variety of data types. Originally created for large-scale brain reconstructions in Connectomics.
 * [KVS](https://github.com/tauraamui/kvs) - A library for making it easy to persist, load and query full structs into BadgerDB, using an ownership hierarchy model.
 * [LLS](https://github.com/Boc-chi-no/LLS) - LLS is an efficient URL Shortener that can be used to shorten links and track link usage. Support for BadgerDB and MongoDB. Improved performance by more than 30% when using BadgerDB
+* [ActionManager](https://mftlabs.io/actionmanager) - A dynamic entity manager based on rjsf schema and badger db
 
 If you are using Badger in a project please send a pull request to add it to the list.
