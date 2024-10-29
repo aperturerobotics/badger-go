@@ -1,15 +1,15 @@
 module github.com/dgraph-io/badger/v4
 
-go 1.22
+go 1.23
 
 require (
 	github.com/aperturerobotics/common v0.18.8
 	github.com/aperturerobotics/protobuf-go-lite v0.7.0
 	github.com/cespare/xxhash/v2 v2.3.0
-	github.com/dgraph-io/ristretto v1.0.0
+	github.com/dgraph-io/ristretto/v2 v2.0.0-alpha
 	github.com/dustin/go-humanize v1.0.1
 	github.com/google/flatbuffers v24.3.25+incompatible
-	github.com/klauspost/compress v1.17.10
+	github.com/klauspost/compress v1.17.11
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/cobra v1.8.1
 	github.com/stretchr/testify v1.9.0
@@ -29,3 +29,5 @@ require (
 )
 
 retract v4.0.0 // see #1888 and #1889
+
+retract v4.3.0 // see #2113 and #2121
